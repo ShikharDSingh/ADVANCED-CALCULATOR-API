@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { deleteAllCalculations, deleteCalculation, getCalculation, listCalculations } from "../controllers/calculations.controller";
+import { validateParams, validateQuery } from "../middlewares/validate-request";
+import { calculationIdSchema, paginationSchema } from "../validators/calculations.validator";
+const router = Router();
+router.get("/", validateQuery(paginationSchema), listCalculations);
+router.delete("/", deleteAllCalculations);
+router.get("/:id", validateParams(calculationIdSchema), getCalculation);
+router.delete("/:id", validateParams(calculationIdSchema), deleteCalculation);
+export default router;

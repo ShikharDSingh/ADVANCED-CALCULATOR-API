@@ -1,0 +1,21 @@
+import express from "express";
+import calculatorRoutes from "./routes/calculator.routes";
+import calculationsRoutes from "./routes/calculations.routes";
+import { requestIdMiddleware } from "./middlewares/request-id";
+import { requestLogger } from "./middlewares/request-logger";
+import { notFound } from "./middlewares/not-found";
+import { errorHandler } from "./middlewares/error-handler";
+import { ApiResponse } from "./utils/api-response";
+import { env } from "./config/env";
+
+const app = express();
+app.disable("x-powered-by");
+app.use(requestIdMiddleware);
+app.use(requestLogger);
+app.use(express.json({ limit: env.MAX_BODY_SIZE }));
+app.get("/health", (_req, res) => ApiResponse.send(res, 200, "Service is healthy.", { status: "ok", uptimeSeconds: Math.floor(process.uptime()) }));
+app.use("/api/v1/calculator", calculatorRoutes);
+app.use("/api/v1/calculations", calculationsRoutes);
+app.use(notFound);
+app.use(errorHandler);
+export default app;

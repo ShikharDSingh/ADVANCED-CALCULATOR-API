@@ -1,0 +1,20 @@
+{
+  "info": {
+    "name": "Advanced Calculator API",
+    "description": "LAB 4 TypeScript Calculator API. Base URL: http://localhost:3000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{"key":"baseUrl","value":"http://localhost:3000"}],
+  "item": [
+    {"name":"Health","request":{"method":"GET","url":"{{baseUrl}}/health"}},
+    {"name":"Arithmetic","item":[
+      {"name":"Add","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"a\":10,\"b\":3}","options":{"raw":{"language":"json"}}},"url":"{{baseUrl}}/api/v1/calculator/add"}},
+      {"name":"Divide by zero (error example)","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"a\":10,\"b\":0}","options":{"raw":{"language":"json"}}},"url":"{{baseUrl}}/api/v1/calculator/divide"}},
+      {"name":"Power","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"a\":2,\"b\":8}","options":{"raw":{"language":"json"}}},"url":"{{baseUrl}}/api/v1/calculator/power"}}
+    ]},
+    {"name":"Evaluate expression","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"expression\":\"(10 + 5) * 2 - 8 / 4\"}","options":{"raw":{"language":"json"}}},"url":"{{baseUrl}}/api/v1/calculator/evaluate"}},
+    {"name":"Chained calculation","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"initialValue\":100,\"operations\":[{\"operator\":\"subtract\",\"value\":20},{\"operator\":\"multiply\",\"value\":2},{\"operator\":\"divide\",\"value\":4}]}","options":{"raw":{"language":"json"}}},"url":"{{baseUrl}}/api/v1/calculator/chain"}},
+    {"name":"List history","request":{"method":"GET","url":"{{baseUrl}}/api/v1/calculations?page=1&limit=10"}},
+    {"name":"Clear history","request":{"method":"DELETE","url":"{{baseUrl}}/api/v1/calculations"}}
+  ]
+}
